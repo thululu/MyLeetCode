@@ -1,0 +1,37 @@
+class Solution {
+public:
+    int ladderLength(string beginWord, string endWord, unordered_set<string>& wordList) {
+       unordered_map<string, int> dis;
+       dis[beginWord]=1;
+        queue<string> path;  
+        path.push(beginWord);
+        while(!path.empty())
+        {
+            string v=path.front();
+            path.pop();
+            if(v==endWord){
+                break;
+            }
+            
+            
+            for(int i=0;i<26;i++)
+            {
+                for(int j=0;j<(int)beginWord.size();j++)
+                {
+                    string n=v;
+                    n[j]='a'+i;
+                    if((wordList.count(n)>0||n==endWord)&&dis[n]==0) 
+                    {
+                        path.push(n);
+                        dis[n]=dis[v]+1;
+                    }
+                }
+            }
+            
+        }
+        
+        return dis[endWord];
+        
+        
+    }
+};
